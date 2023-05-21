@@ -8,4 +8,42 @@
         <OutputType>Library</OutputType>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MediatR" Version="12.0.1" />
+      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
+      <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.30.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CB.Domain\CB.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\Dtos\CreateUserDto\CreateUserDto.en.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ErrorMessages.en.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Dtos\CreateUserDto\CreateUserDto.ru.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ErrorMessages.ru.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Resources\Dtos\CreateUserDto\CreateUserDto.en.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>CreateUserDto.en.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Dtos\CreateUserDto\CreateUserDto.ru.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>CreateUserDto.ru.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Features\AuthFeature\Signin\" />
+    </ItemGroup>
+
 </Project>

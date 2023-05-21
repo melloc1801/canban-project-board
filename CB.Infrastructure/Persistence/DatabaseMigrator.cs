@@ -3,9 +3,9 @@ using DbUp;
 
 namespace CB.Infrastructure.Persistence;
 
-public static class DatabaseMigrator
+public class DatabaseMigrator: IDatabaseMigrator
 {
-    public static void Update(string connectionString)
+    public void Update(string connectionString)
     {
         EnsureDatabase.For.PostgresqlDatabase(connectionString);
             

@@ -24,8 +24,9 @@ public class ErrorHandlingMiddleware
         {
             await HandleExceptionAsync(context, problemDetailsException);
         }
-        catch (Exception _)
+        catch (Exception e)
         {
+            Console.WriteLine(e);
             var internalServerError = new InternalServerException();
             await HandleExceptionAsync(context, internalServerError);
         }
