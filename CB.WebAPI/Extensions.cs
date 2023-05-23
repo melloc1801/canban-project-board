@@ -1,5 +1,4 @@
 using CB.Application.Exceptions;
-using CB.Application.Exceptions.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CB.WebAPI;
@@ -23,9 +22,17 @@ public static class Extensions
                     var type = "https://tools.ietf.org/html/rfc7231#section-6.5.1";
                     var title = "One or more validation errors occurred.";
 
-                    var response = new BadRequestException(title, null, fieldErrors);
-
-                    return new BadRequestObjectResult(response);
+                    var problemDetails = new ProblemDetails()
+                    {
+                        Title = title,
+                        Detail = null,
+                        Extensions =
+                        {
+                            new KeyValuePair<string, object?>("fields", fieldErrors)
+                        }
+                    };
+                        
+                    return new BadRequestObjectResult(problemDetails);
                 };
             });
     }
