@@ -9,10 +9,17 @@
 
     <ItemGroup>
         <PackageReference Include="dbup-postgresql" Version="5.0.8" />
+        <PackageReference Include="Npgsql" Version="8.0.0-preview.3" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\CB.Application\CB.Application.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="migrations\some.sql" />
+      <None Remove="migrations\00001_User.sql" />
+      <EmbeddedResource Include="migrations\00001_User.sql" />
     </ItemGroup>
 
 </Project>
