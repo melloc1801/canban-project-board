@@ -1,6 +1,7 @@
 using CB.Application.Exceptions;
 using CB.Application.Exceptions.Http;
 using CB.Application.Features.AuthFeature.Auth.Dtos;
+using CB.Application.Features.AuthFeature.Refresh.Dtos;
 using CB.Application.Features.AuthFeature.Signin.Dtos;
 using CB.Application.Features.CryptoFeature;
 using CB.Application.Features.JWTFeature;
@@ -103,5 +104,43 @@ public class AuthService : IAuthService
             updatedUser.RefreshToken,
             updatedUser.AvatarURL
         );
+    }
+
+    public async Task<RefreshTokensResponseDto> Refresh(RefreshTokensDto refreshTokensDto)
+    {
+        var verifiedToken = _jwtService.VerifyRefreshToken(refreshTokensDto.RefreshToken);
+        if (verifiedToken == null)
+        {
+            throw new BadRequestException(
+                "Invalid token", 
+                "Refresh token isn't valid",
+                null
+            );
+        }
+
+        var user = await _userService.GetOneByEmail(verifiedToken.Email);
+        if (user == null)
+        {
+            throw new BadRequestException("User not found", "User not found", null);
+        }
+        if (user.RefreshToken != refreshTokensDto.RefreshToken)
+        {
+            throw new BadRequestException("Invalid token", "Refresh token isn't valid", null);
+        }
+
+        var newAccessToken = _jwtService.CreateAccessToken(verifiedToken);
+        var newRefreshToken = _jwtService.CreateRefreshToken(verifiedToken);
+        var updateUserDto = new UpdateUserDto(
+            user.Email, 
+            user.Username, 
+            user.Firstname, 
+            user.Lastname, 
+            user.PasswordHash,
+            newRefreshToken,
+            user.AvatarURL
+        );
+        await _userService.UpdateUser(user.Id, updateUserDto);
+
+        return new RefreshTokensResponseDto(newAccessToken, newRefreshToken);
     }
 }
