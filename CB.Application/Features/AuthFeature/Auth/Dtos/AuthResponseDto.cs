@@ -1,6 +1,6 @@
-namespace CB.Application.Features.AuthFeature.Signup.Dtos;
+namespace CB.Application.Features.AuthFeature.Auth.Dtos;
 
-public record SignupResponseDto
+public record AuthResponseDto
 (
     int Id,
     string Email,

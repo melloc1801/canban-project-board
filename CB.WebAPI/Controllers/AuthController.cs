@@ -1,5 +1,6 @@
 using CB.Application.Features.AuthFeature;
-using CB.Application.Features.AuthFeature.Signup.Dtos;
+using CB.Application.Features.AuthFeature.Auth.Dtos;
+using CB.Application.Features.AuthFeature.Signin.Dtos;
 using CB.Application.Features.UserFeature.CreateUser.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,8 +16,14 @@ public class AuthController
         _authService = authService;
     }
 
-    [HttpPost]
-    public async Task<SignupResponseDto> Signup([FromBody] CreateUserDto createUserDto)
+    [HttpPost("signin")]
+    public async Task<AuthResponseDto> Signin([FromBody] SigninDto signinDto)
+    {
+        return await _authService.Signin(signinDto);
+    }
+
+    [HttpPost("signup")]
+    public async Task<AuthResponseDto> Signup([FromBody] CreateUserDto createUserDto)
     {
         return await _authService.Signup(createUserDto);
     }

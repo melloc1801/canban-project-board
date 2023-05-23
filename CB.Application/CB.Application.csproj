@@ -41,7 +41,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\AuthFeature\Signin\" />
+      <Folder Include="Features\AuthFeature\Auth\" />
+      <Folder Include="Features\AuthFeature\Signup\" />
     </ItemGroup>
 
 </Project>
