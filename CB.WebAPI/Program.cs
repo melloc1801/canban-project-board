@@ -18,6 +18,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseStaticFiles();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

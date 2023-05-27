@@ -1,7 +1,7 @@
-using System.Reflection;
 using CB.Application.Features.AuthFeature;
 using CB.Application.Features.CryptoFeature;
 using CB.Application.Features.JWTFeature;
+using CB.Application.Features.UploadFeature;
 using CB.Application.Features.UserFeature;
 
 namespace CB.Application;
@@ -14,6 +14,7 @@ public static class ServiceExtensions
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IJwtService, JwtService>();
         services.AddScoped<ICryptoService, CryptoService>();
+        services.AddScoped<IUploadService, UploadService>();
         services.AddSingleton(sp =>
         {
             var jwtSection = sp.GetService<IConfiguration>()?.GetSection("JWT");
